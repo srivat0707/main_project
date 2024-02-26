@@ -64,8 +64,10 @@ router.get("/test", function (req, res) {
 
 // create new api
 router.post("/newf", function (req, res) {
-	var formatedMysqlString = (new Date ((new Date((new Date(new Date())).toISOString() )).getTime() - ((new Date()).getTimezoneOffset()*60000))).toISOString().slice(0, 19).replace('T', ' ');
-console.log( formatedMysqlString );
+	var istOffset = 5 * 60 + 30;
+var adjustedTime = new Date(new Date().getTime() + istOffset * 60000);
+
+var formattedMysqlString = adjustedTime.toISOString().slice(0, 19).replace('T', ' ');
 	let sql = `INSERT INTO \`NW-3\`.NWF( w_id, s_id, n_id, SV1, SV2,SV3, Timestamp) VALUES (?)`;
 	let values = [
 		req.body.warehouseID,
@@ -80,7 +82,7 @@ console.log( formatedMysqlString );
 		// req.body.NodeStatus,
 		// req.body.StatusUpdate,
 		// req.body.Suggestion,
-		formatedMysqlString,
+		formattedMysqlString,
 	];
 	console.log(values);
 	db.query(sql, [values], function (err, data, fields) {
@@ -93,8 +95,10 @@ console.log( formatedMysqlString );
 	console.log("commited into fixed nodes...");
 });
 router.post("/newc", function (req, res) {
-	var formatedMysqlString = (new Date ((new Date((new Date(new Date())).toISOString() )).getTime() - ((new Date()).getTimezoneOffset()*60000))).toISOString().slice(0, 19).replace('T', ' ');
-console.log( formatedMysqlString );
+	var istOffset = 5 * 60 + 30;
+var adjustedTime = new Date(new Date().getTime() + istOffset * 60000);
+
+var formattedMysqlString = adjustedTime.toISOString().slice(0, 19).replace('T', ' ');
 	let sql = `INSERT INTO \`NW-3\`.NWC( w_id, s_id, n_id, CO2, Humidity,Temperature, Timescltamp) VALUES (?)`;
 	let values = [
 		req.body.warehouseID,
@@ -109,7 +113,7 @@ console.log( formatedMysqlString );
 		// req.body.NodeStatus,
 		// req.body.StatusUpdate,
 		// req.body.Suggestion,
-		formatedMysqlString,
+		formattedMysqlString,
 	];
 	console.log(values);
 	db.query(sql, [values], function (err, data, fields) {
